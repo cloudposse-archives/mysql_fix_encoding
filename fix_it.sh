@@ -9,14 +9,14 @@ proccess_change_field() {
 
   if echo $FIELD_RAW | grep -E '(varchar\(|text\s)' > /dev/null ;
   then
-   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \1 \1 \2 CHARACTER SET latin1; /g"
-   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \1 \1 \2; /g" | \
+   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \`\1\` \`\1\` \2 CHARACTER SET latin1; /g"
+   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \`\1\` \`\1\` \2; /g" | \
         sed "s/\svarchar(/ varbinary(/g" | \
         sed "s/\slongtext;/ longblob;/g" | \
         sed "s/\smediumtext;/ mediumblob;/g" | \
         sed "s/\stext;/ blob;/g" | \
         sed "s/\stinytext;/ tinyblob;/g"
-   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \1 \1 \2 CHARACTER SET utf8; /g"
+   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \`\1\` \`\1\` \2 CHARACTER SET utf8; /g"
   fi
 }
 
@@ -29,7 +29,7 @@ proccess_enum_field() {
 
   if echo $FIELD_RAW | grep -E '(enum\(|set\()' > /dev/null ;
   then
-   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \1 \1 \2 CHARACTER SET utf8 \3; /g"
+   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE CHANGE \`\1\` \`\1\` \2 CHARACTER SET utf8 \3; /g"
   fi
 }
 
@@ -42,7 +42,7 @@ proccess_drop_fulltext() {
 
   if echo $FIELD_RAW | grep -iE 'FULLTEXT\sKEY' > /dev/null ;
   then
-   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/DROP INDEX \1 ON $TABLE;  ; /g"
+   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/DROP INDEX \`\1\` ON $TABLE;  ; /g"
   fi
 }
 
@@ -55,7 +55,7 @@ proccess_create_fulltext() {
 
   if echo $FIELD_RAW | grep -iE 'FULLTEXT\sKEY' > /dev/null ;
   then
-   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE ADD FULLTEXT INDEX \1 \2;/g"
+   echo $FIELD_RAW | perl -p -e "s/$PARCE_FIELD/ALTER TABLE $TABLE ADD FULLTEXT INDEX \`\1\` \2;/g"
   fi
 }
 
