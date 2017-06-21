@@ -85,10 +85,25 @@ convert_table() {
   echo "ALTER TABLE $TABLE CHARACTER SET utf8;"
 }
 
+convert_field() {
+  local TABLE=$1
+  local FIELD=$2
+
+  local FIELD_RAW=$($mysql -e "SHOW CREATE TABLE ${TABLE}\G" | grep "\`${FIELD}\`")
+  proccess_change_field $TABLE "$FIELD_RAW"
+}
+
+
 mysql="sudo mysql --defaults-file=/root/.my.cnf"
 
 readarray -t TABLES < <($mysql -e "SHOW TABLE STATUS WHERE Collation='latin1_swedish_ci'\G" | grep Name | sed  's/Name://g' | awk '{$1=$1;print}')
 
 for TABLE in "${TABLES[@]}"; do
   convert_table $TABLE
+done
+
+readarray -t TABLE_FIELDS < <($mysql -e "SELECT CONCAT(TABLE_NAME, '|', COLUMN_NAME) as DATA FROM information_schema.columns WHERE CHARACTER_SET_NAME = 'latin1' AND TABLE_SCHEMA=DATABASE()\G" | grep DATA | sed  's/DATA://g' | awk '{$1=$1;print}')
+
+for TABLE_FIELD in "${TABLE_FIELDS[@]}"; do
+  convert_field $(echo $TABLE_FIELD | cut -d'|' -f1) $(echo $TABLE_FIELD | cut -d'|' -f2)
 done
