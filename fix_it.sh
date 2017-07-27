@@ -93,8 +93,9 @@ convert_field() {
   proccess_change_field $TABLE "$FIELD_RAW"
 }
 
+MY_CNF=${MY_CNF:-/root/.my.cnf}
 
-mysql="sudo mysql --defaults-file=/root/.my.cnf"
+mysql="sudo mysql --defaults-file=${MY_CNF}"
 
 readarray -t TABLES < <($mysql -e "SHOW TABLE STATUS WHERE Collation='latin1_swedish_ci'\G" | grep Name | sed  's/Name://g' | awk '{$1=$1;print}')
 
