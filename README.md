@@ -1,5 +1,4 @@
-# Mysql latin1 to utf8 convert
-
+# Script to Convert MySQL Database Encoding From latin1 to utf8
 
 ## Install
 
@@ -15,7 +14,7 @@ You should have exited db with some tables or fields in latin1 encoding.
 
 ## How to use
 
-1) Create my.cnf file with client default options.
+1) Create `my.cnf` file with client default options.
 
     **Example:**
     ```
@@ -28,15 +27,15 @@ You should have exited db with some tables or fields in latin1 encoding.
 
 2) Check SQL query that would be applied
 
-    `$ MY_CNF=/home/{user}/my.cnf /usr/local/bin/mysql_latin_utf8.sh`
+    `$ MY_CNF=/home/${user}/my.cnf /usr/local/bin/mysql_latin_utf8.sh`
 
 3) Run convert db with command
 
-    `$ MY_CNF=/home/{user}/my.cnf /usr/local/bin/mysql_latin_utf8.sh | pv | sudo mysql --defaults-file=/home/{user}/.my.cnf`
+    `$ MY_CNF=/home/${user}/my.cnf /usr/local/bin/mysql_latin_utf8.sh | pv | sudo mysql --defaults-file=/home/${user}/.my.cnf`
 
 ## Extra
 
-You can override default database name specified in my.cnf with env var `DB`
+You can override the default database name specified in `my.cnf` by setting the environment variable `DB`
 
  **Example:**
 
@@ -44,5 +43,5 @@ You can override default database name specified in my.cnf with env var `DB`
  $ DB=new_db \
    MY_CNF=/home/{user}/my.cnf \
   /usr/local/bin/mysql_latin_utf8.sh | pv | \
-  sudo mysql --defaults-file=/home/{user}/.my.cnf new_db
+  sudo mysql --defaults-file=/home/${user}/.my.cnf new_db
   ```
