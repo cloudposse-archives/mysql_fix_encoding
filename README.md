@@ -41,7 +41,7 @@ You can override the default database name specified in `my.cnf` by setting the 
 
  ```
  $ DB=new_db \
-   MY_CNF=/home/{user}/my.cnf \
+   MY_CNF=/home/${user}/my.cnf \
   /usr/local/bin/mysql_latin_utf8.sh | pv | \
   sudo mysql --defaults-file=/home/${user}/.my.cnf new_db
   ```
