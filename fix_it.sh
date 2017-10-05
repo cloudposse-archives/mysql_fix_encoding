@@ -76,7 +76,7 @@ proccess_create_constraint() {
   local TABLE=$1
   local FIELD_RAW=$2
 
-  local PARSE_FIELD="^(CONSTRAINT[^,]*),?$"
+  local PARSE_FIELD="^(CONSTRAINT[^,\n]*),?$"
 
   if echo $FIELD_RAW | grep -iE 'CONSTRAINT' > /dev/null ;
   then
