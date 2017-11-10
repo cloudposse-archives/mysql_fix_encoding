@@ -219,3 +219,5 @@ for TABLE in "${TABLES[@]}"; do
   create_fulltexts $TABLE
   creates_constraints $TABLE
 done
+
+$MYSQL -e "ALTER DATABASE ${DB} CHARACTER SET = 'utf8'  COLLATE = 'utf8_general_ci';" 2>&1 | grep -v "$SILENT_WARNING"
