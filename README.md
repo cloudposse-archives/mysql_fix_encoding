@@ -2,7 +2,7 @@
 
 ## Install
 
-* Install [pv](https://github.com/icetee/pv]) tool
+* Install [pv](https://github.com/icetee/pv) tool
 * Install script
   ```shell
   curl https://raw.githubusercontent.com/cloudposse/mysql_fix_encoding/4.0/fix_it.sh -o /usr/local/bin/mysql_latin_utf8.sh
@@ -31,7 +31,7 @@ You should have exited db with some tables or fields in latin1 encoding.
 
 3) Run convert db with command
 
-    `$ MY_CNF=/home/${user}/my.cnf /usr/local/bin/mysql_latin_utf8.sh | pv | sudo mysql --defaults-file=/home/${user}/.my.cnf`
+    `$ MY_CNF=/home/${user}/my.cnf /usr/local/bin/mysql_latin_utf8.sh | pv | sudo mysql --defaults-file=/home/${user}/my.cnf`
 
 ## Extra
 
